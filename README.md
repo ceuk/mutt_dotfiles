@@ -1,5 +1,22 @@
 # Mutt dotfiles
 
+Robust Mutt configs with examples for the following account types:
+
+* Generic IMAP/SMTP
+* Google (Gmail/Gsuite etc) via IMAP/SMTP
+* Microsoft Office365 via IMAP/SMTP
+* Microsoft Office365 using DavMail (useful if app passwords or direct IMAP/SMTP access are disabled)
+
+## Some Features
+
+* Query and save contacts via abook, goobook or LDAP (for Office365, query only)
+* Good calendar invite handling: render calendar invites inline and respond to them with `A` when viewing the calendar invite attachment
+* Nice handling of inline text/html rendering (use `C-l` to open up all links the email - great for quickly finding unsubscribe links)
+* Secure configs (no hardcoded passwords etc)
+* Global search via NotMuch (C-f)
+* Everything looks really nice :)
+* Includes all peripheral configs for isync, msmtp, notmuch etc 
+
 ## Dependencies
 
 * NeoMutt (latest version, all compile options enabled)
