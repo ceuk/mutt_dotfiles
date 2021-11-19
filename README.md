@@ -1,5 +1,10 @@
 # Mutt dotfiles
 
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/1681236/142619631-abd51f53-fea9-449d-a91e-52a07c1a24f4.png" width="49.5%" />
+  <img src="https://user-images.githubusercontent.com/1681236/142620913-22247cb9-66bd-48e3-8387-e42650637d35.png" width="49.5%" /> 
+</p>
+
 Robust Mutt configs with examples for the following account types:
 
 * Generic IMAP/SMTP
