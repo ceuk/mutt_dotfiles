@@ -1,0 +1,8 @@
+[Unit]
+Description=Mailbox synchronization service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/mailsync
+Environment=NOTMUCH_CONFIG=/home/%u/.config/notmuch/notmuchrc
+ExecStartPost=/usr/bin/notmuch new

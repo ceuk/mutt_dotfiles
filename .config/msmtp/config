@@ -1,0 +1,59 @@
+## Used to configure your SMTP settings
+# the ACCOUNT_ALIAS used here should match the one you used in your mutt and
+# isync configs
+
+defaults
+auth	on
+tls	on
+tls_trust_file	/etc/ssl/certs/ca-certificates.crt
+logfile	~/.config/msmtp/msmtp.log
+
+
+# Example generic SMTP
+account ACCOUNT_ALIAS
+host my.imap.host # (check your email providers smtp documentation)
+port 587
+from me@myemail.com
+user me@myemail.com
+passwordeval "pass my-email-password" # how to get your password ('pass' is great for storing these)
+
+
+# Example google SMTP
+account ACCOUNT_ALIAS
+host smtp.gmail.com
+port 587
+from myemail@gmail.com
+user myemail@gmail.com
+# NOTE that if you use 2FA you will have to generate an app password to use
+# here instead: https://support.google.com/accounts/answer/185833?hl=en
+passwordeval "pass my-gmail-password" # how to get your password ('pass' is great for storing these)
+
+
+# Example outlook/office365 via SMTP
+account ACCOUNT_ALIAS
+host smtp.office365.com
+port 587
+from myemail@corporateoverlords.com
+user myemail@corporateoverlords.com
+# NOTE that if you use 2FA you will have to generate an app password to use
+# here instead:
+# https://support.microsoft.com/en-us/account-billing/manage-app-passwords-for-two-step-verification-d6dc8c6d-4bf7-4851-ad95-6d07799387e9
+# If you can't do this you might have to use the DavMail approach instead of
+# direct IMAP - see below
+passwordeval "pass my-owa-password" # how to get your password ('pass' is great for storing these)
+
+
+# Example outlook/office365 (DavMail method)
+# To use this method you will need to install DavMail
+# (http://davmail.sourceforge.net/) and have it running. This config assumes
+# you have it running locally as opposed to on a server somewhere
+account ACCOUNT_ALIAS
+host 127.0.0.1
+port 1025 # default port used by DavMail - change if needed
+tls off
+auth login
+from myemail@corporateoverlords.com
+user myemail@corporateoverlords.com
+# Use your normal login password
+passwordeval "pass my-owa-password" # how to get your password ('pass' is great for storing these)
+

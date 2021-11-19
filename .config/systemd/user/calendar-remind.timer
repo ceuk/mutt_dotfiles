@@ -1,0 +1,10 @@
+[Unit]
+Description=Reminders for upcoming calendar events
+
+[Timer]
+OnBootSec=2min
+OnCalendar=*:0/15
+Unit=calendar-remind.service
+
+[Install]
+WantedBy=basic.target

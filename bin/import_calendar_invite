@@ -1,0 +1,11 @@
+#!/bin/bash
+## Accept invite and import into google calendar (you probably won't need this,
+# it's useful for if you're getting calendar invites to a work calendar that's
+# locked down and you need to create a copy in a personal calendar)
+echo 'Importing invite...'
+gcalcli --config-folder='~/.config/gcalcli' \
+        --calendar='MY_CALENDAR_NAME_CHANGE_ME' \
+        import -v "$1"
+echo 'Replying to invite...'
+mutt-ical -i -e "$2" "$1"
+

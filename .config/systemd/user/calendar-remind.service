@@ -1,0 +1,9 @@
+[Unit]
+Description=Check if user has been idle for more than 3 minutes and lock the screen
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/local/bin/remind.sh
+
+[Install]
+WantedBy=basic.target

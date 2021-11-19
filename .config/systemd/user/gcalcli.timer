@@ -1,0 +1,10 @@
+[Unit]
+Description=gcalcli reminder timer
+
+[Timer]
+OnBootSec=2m
+OnUnitActiveSec=5m
+Unit=gcalcli.service
+
+[Install]
+WantedBy=timers.target

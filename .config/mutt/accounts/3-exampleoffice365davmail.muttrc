@@ -1,0 +1,47 @@
+# vim: filetype=neomuttrc
+# example of an office365 config where imap is NOT enabled/allowed. 
+# in order to use this you will need to have DavMail running: http://davmail.sourceforge.net/
+# change ACCOUNT_ALIAS to something sensible (this should match msmtp and isync)
+set realname = "My Name"
+set from = "myemail@corporateoverlords.com"
+set sendmail = "msmtp -a "
+alias me My Name <myemail@corporateoverlords.com>
+set folder = "~/.local/share/mail/ACCOUNT_ALIAS"
+set header_cache = ~/.cache/mutt/ACCOUNT_ALIAS/headers
+set message_cachedir = ~/.cache/mutt/ACCOUNT_ALIAS/bodies
+set mbox_type = Maildir
+set reverse_name=yes
+set reverse_realname=no
+
+bind index,pager gg noop
+bind index,pager g noop
+bind index,pager M noop
+bind index,pager C noop
+bind index gg first-entry
+macro index o "<shell-escape>mailsync -V ACCOUNT_ALIAS<enter>" "run mbsync to sync ACCOUNT_ALIAS"
+# Responds to invite and imports the event into a personal calendar (this is assuming that if the company locks down IMAP they probably lock down calendar sharing too)
+macro attach,pager A '<shell-escape>rm -vf /tmp/.mutt.ics<enter><save-entry><kill-line>/tmp/.mutt.ics<enter><shell-escape>import_calendar_invite /tmp/.mutt.ics myemail@corporateoverlords.com<enter>'
+unmailboxes *
+
+set spoolfile = "+INBOX"
+set record = "+Sent"
+set postponed = "+Drafts"
+set trash = ""
+mailboxes "=INBOX" "=Trash" "=Drafts" "=Archive" "=Sent"
+# query contacts with LDAP
+set query_command = "ldap_owa_query '%s'"
+macro index,pager gi "<change-folder>=INBOX<enter>" "go to inbox"
+macro index,pager Mi ";<save-message>=INBOX<enter><enter>" "move mail to inbox"
+macro index,pager Ci ";<copy-message>=INBOX<enter>" "copy mail to inbox"
+macro index,pager gs "<change-folder>=Sent<enter>" "go to sent"
+macro index,pager Ms ";<save-message>=Sent<enter><enter>" "move mail to sent"
+macro index,pager Cs ";<copy-message>=Sent<enter>" "copy mail to sent"
+macro index,pager gd "<change-folder>=Drafts<enter>" "go to drafts"
+macro index,pager Md ";<save-message>=Drafts<enter><enter>" "move mail to drafts"
+macro index,pager Cd ";<copy-message>=Drafts<enter>" "copy mail to drafts"
+macro index,pager gS "<change-folder>=Junk<enter>" "go to spam"
+macro index,pager MS ";<save-message>=Junk<enter><enter>" "move mail to spam"
+macro index,pager CS ";<copy-message>=Junk<enter>" "copy mail to spam"
+macro index,pager ga "<change-folder>=Archive<enter>" "go to archive"
+macro index,pager Ma ";<save-message>=Archive<enter><enter>" "move mail to archive"
+macro index,pager Ca ";<copy-message>=Archive<enter>" "copy mail to archive"

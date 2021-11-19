@@ -1,0 +1,7 @@
+[Unit]
+Description=Calendar synchronization service
+
+[Service]
+Type=oneshot
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+ExecStart=/usr/local/bin/gcalsync

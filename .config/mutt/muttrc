@@ -1,0 +1,139 @@
+# vim: filetype=neomuttrc
+set mailcap_path = $HOME/.config/mutt/mailcap
+set rfc2047_parameters = yes
+
+#### General Bindings
+bind index,pager g noop
+bind index,pager i noop
+bind index j next-entry
+bind index k previous-entry
+bind attach <return> view-mailcap
+bind attach l view-mailcap
+bind editor <space> noop
+bind index G last-entry
+bind index gg first-entry
+bind pager,attach h exit
+bind pager j next-line
+bind pager k previous-line
+bind index D delete-message
+bind index U undelete-message
+bind index L limit
+bind index h noop
+bind index l display-message
+bind index <space> tag-entry
+bind index,pager \Cu half-up
+bind index,pager \Cd half-down
+bind index,pager \Cb sidebar-toggle-visible
+bind index,pager \Cj sidebar-next
+bind index,pager \Ck sidebar-prev
+bind index,pager \Co sidebar-open
+bind index \Cf noop
+bind index,pager H view-raw-message
+bind browser l select-entry
+bind pager ^ noop
+bind pager g noop
+bind pager gg noop
+bind pager gg top
+bind pager G bottom
+bind browser gg top-page
+bind browser G bottom-page
+bind index,pager S sync-mailbox
+bind index,pager R group-reply
+bind index,pager \Cr recall-message
+bind index \031 previous-undeleted	# Mouse wheel
+bind index \005 next-undeleted		# Mouse wheel
+bind pager \031 previous-line		# Mouse wheel
+bind pager \005 next-line		# Mouse wheel
+bind editor <Tab> complete-query
+macro attach I '<save-entry><kill-line>~/Downloads/<enter>' "Save files"
+macro pager \cl '|urlscan<enter>' "call urlview to open links"
+macro browser h '<change-dir><kill-line>..<enter>' "Go to parent folder"
+macro index O "<shell-escape>mbsync -a -c $HOME/.config/isync/mbsyncrc<enter>" "run mbsync to sync all mail"
+macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+macro index A "<limit>all\n" "show all messages (undo limit)"
+# C-f search with notmuch
+macro index \Cf "<change-folder>=[Gmail].All\ Mail<enter><enter-command>unset wait_key<enter><shell-escape>read -p 'Search query: ' x; echo \$x >\$XDG_CACHE_HOME/mutt_terms<enter><limit>~i \"\`notmuch --config ~/.config/notmuch/notmuchrc search --output=messages \$(cat \$XDG_CACHE_HOME/mutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern"
+
+# Accounts
+# CHANGE THESE TO MATCH YOUR ACCOUNT CONFIG
+source $HOME/.config/mutt/accounts/0-sampleaccount.muttrc 
+macro index,pager i1 '<sync-mailbox><enter-command>source $HOME/.config/mutt/accounts/1-sampleaccount.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to sample account" 
+macro index,pager i2 '<sync-mailbox><enter-command>source $HOME/.config/mutt/accounts/2-anotheraccount.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to another account" 
+macro index,pager i3 '<sync-mailbox><enter-command>source $HOME/.config/mutt/accounts/3-someotheraccount.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to some other account" 
+macro index,pager i4 '<sync-mailbox><enter-command>source $HOME/.config/mutt/accounts/4-yetanotheraccount.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to yet another account" 
+
+#### General Settings
+set smtp_authenticators = 'gssapi:login'
+unset help
+set sleep_time = 0		# Pause 0 seconds for informational messages
+set mark_old = no		# Unread mail stay unread until read
+set mime_forward = yes		# attachments are forwarded with mail
+set wait_key = no		# mutt won't ask "press key to continue"
+set fast_reply			# skip to compose when replying
+set fcc_attach			# save attachments with the body
+set forward_format = "Fwd: %s"	# format of subject when forwarding
+set forward_quote		# include message in forwards
+set reverse_name		# reply as whomever it was to
+set reverse_realname=yes # use any real name provided when replying
+set include			# include message in replies
+set mail_check=60 # to avoid lags using IMAP with some email providers (yahoo for example)
+set timeout=30
+
+# Color scheme
+source ~/.config/mutt/dracula.muttrc
+source ~/.config/mutt/styles.muttrc
+
+# Header Options
+ignore *                                # ignore all headers
+unignore from: to: cc: date: subject:   # show only these
+unhdr_order *                           # some distros order things by default
+hdr_order from: to: cc: date: subject:  # and in this order
+
+# View Settings
+# set pager="/usr/bin/bat --language=Email"
+set pager_index_lines = 10 # number of index lines to show
+set pager_context = 3      # number of context lines to show
+set pager_stop             # don't go to next message automatically
+set menu_scroll            # scroll in menus
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+set smart_wrap="yes"
+set wrap=72
+
+# Content/Autoview stuff
+auto_view application/ics
+auto_view text/calendar
+auto_view text/plain
+auto_view text/html
+auto_view application/pgp-encrypted
+alternative_order text/calendar text/plain text/enriched text/html
+
+# Sidebar Patch
+set sidebar_divider_char = ' 	░'
+set sidebar_folder_indent = yes
+set sidebar_indent_string = ' - '
+set sidebar_format = '%B%?F? [%F]?%* %?N?%N/? %?S?%S?'
+set sidebar_non_empty_mailbox_only = yes
+set sidebar_visible = no
+set sidebar_width   = 50
+set sidebar_next_new_wrap = yes
+set sidebar_short_path = yes
+set mail_check_stats
+set sidebar_component_depth = 0
+
+# Thread ordering
+set sort = 'reverse-threads'
+set sort_browser="reverse-date"
+set sort_aux="last-date-received"
+set sort_re
+set collapse_all = yes
+set uncollapse_new = yes
+set thread_received = yes
+set narrow_tree=no
+
+# Text editor
+set editor="mutt-trim %s; nvim +':set textwidth=72' +':set wrapmargin=0' +':set wrap' +':set spell' %s"
+
+# Markdown to html email conversion
+macro compose \e5 "F pandoc -s -f markdown -t html \ny^T^Utext/html; charset=us-ascii\n" "Convert from MD to HTML"
+set wait_key=no

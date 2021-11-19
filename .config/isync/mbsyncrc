@@ -1,0 +1,134 @@
+####################################################
+# Define your email accounts you want to sync here #
+####################################################
+
+
+
+# Example Generic IMAP profile ################################################
+#
+# Change ACCOUNT_ALIAS to something meaningful (e.g. personal, work) - this should
+# match the account alias used in .config/mutt/accounts/*
+IMAPStore ACCOUNT_ALIAS-remote
+Host my.imap.host # (check your email providers imap documentation)
+Port 993 # (check your email providers imap documentation)
+User myemail@domain.com
+PassCmd "pass my-email-password" # how to get your password ('pass' is great for storing these)
+AuthMechs LOGIN
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+MaildirStore ACCOUNT_ALIAS-local
+Subfolders Verbatim
+Path ~/.local/share/mail/ACCOUNT_ALIAS/
+Inbox ~/.local/share/mail/ACCOUNT_ALIAS/INBOX
+Flatten .
+
+Channel ACCOUNT_ALIAS
+Expunge Both
+Master :ACCOUNT_ALIAS-remote:
+Slave :ACCOUNT_ALIAS-local:
+Patterns *
+Create Both
+SyncState *
+MaxMessages 0
+ExpireUnread no
+
+
+# Example Google IMAP profile ##################################################
+#
+# Change ACCOUNT_ALIAS to something meaningful (e.g. personal, work) - this should
+# match the account alias used in .config/mutt/accounts/*
+IMAPStore ACCOUNT_ALIAS-remote
+Host imap.gmail.com
+Port 993
+User myemail@gmail.com
+# NOTE that if you use 2FA you will have to generate an app password to use
+# here instead: https://support.google.com/accounts/answer/185833?hl=en
+PassCmd "pass my-gmail-password" # how to get your password ('pass' is great for storing these)
+AuthMechs LOGIN
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+MaildirStore ACCOUNT_ALIAS-local
+Subfolders Verbatim
+Path ~/.local/share/mail/ACCOUNT_ALIAS/
+Inbox ~/.local/share/mail/ACCOUNT_ALIAS/INBOX
+Flatten .
+
+Channel ACCOUNT_ALIAS
+Expunge Both
+Master :ACCOUNT_ALIAS-remote:
+Slave :ACCOUNT_ALIAS-local:
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Create Both
+SyncState *
+MaxMessages 1000
+ExpireUnread no
+
+
+# Example Office365/Outlook (IMAP enabled/allowed) profile ####################
+#
+# Change ACCOUNT_ALIAS to something meaningful (e.g. personal, work) - this should
+# match the account alias used in .config/mutt/accounts/*
+IMAPStore ACCOUNT_ALIAS-remote
+Host outlook.office365.com
+Port 993
+User myemail@corporateoverlords.com
+# NOTE that if you use 2FA you will have to generate an app password to use
+# here instead:
+# https://support.microsoft.com/en-us/account-billing/manage-app-passwords-for-two-step-verification-d6dc8c6d-4bf7-4851-ad95-6d07799387e9
+# If you can't do this you might have to use the DavMail approach instead of
+# direct IMAP - see below
+PassCmd "pass my-owa-password" # how to get your password ('pass' is great for storing these)
+AuthMechs LOGIN
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+MaildirStore ACCOUNT_ALIAS-local
+Subfolders Verbatim
+Path ~/.local/share/mail/ACCOUNT_ALIAS/
+Inbox ~/.local/share/mail/ACCOUNT_ALIAS/INBOX
+Flatten .
+
+Channel ACCOUNT_ALIAS
+Expunge Both
+Master :ACCOUNT_ALIAS-remote:
+Slave :ACCOUNT_ALIAS-local:
+Create Both
+SyncState *
+MaxMessages 1000
+ExpireUnread no
+
+
+# Example Office365/Outlook (DavMail method) profile ####################
+#
+# Change ACCOUNT_ALIAS to something meaningful (e.g. personal, work) - this should
+# match the account alias used in .config/mutt/accounts/*
+#
+# To use this method you will need to install DavMail
+# (http://davmail.sourceforge.net/) and have it running. This config assumes
+# you have it running locally as opposed to on a server somewhere
+IMAPStore ACCOUNT_ALIAS-remote
+Host 127.0.0.1
+Port 1143 # default port used by DavMail - change if needed
+User myemail@corporateoverlords.com
+# use your main login password
+PassCmd "pass my-owa-password" # how to get your password ('pass' is great for storing these)
+SSLType none
+AuthMechs LOGIN
+
+MaildirStore ACCOUNT_ALIAS-local
+Subfolders Verbatim
+Path ~/.local/share/mail/ACCOUNT_ALIAS/
+Inbox ~/.local/share/mail/ACCOUNT_ALIAS/INBOX
+Flatten .
+
+Channel ACCOUNT_ALIAS
+Expunge Both
+Master :ACCOUNT_ALIAS-remote:
+Slave :ACCOUNT_ALIAS-local:
+Patterns *
+Create Both
+SyncState *
+MaxMessages 0
+ExpireUnread no

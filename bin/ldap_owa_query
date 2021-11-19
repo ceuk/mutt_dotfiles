@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+## Perform a contact search via ldap
+
+# get your password somehow (e.g. using 'pass')
+pass=$(pass my-email-password)
+
+echo ""
+# 1389 is the default port used by davmail - change this if you need to
+ldapsearch -H ldap://localhost:1389 \
+           -x \
+           # your email address
+           -D 'myemail@corporateoverlords.com' \
+           -w$pass \
+           -b 'ou=people' \
+           "(|(sn=$1*)(mail=$1*)(givenName=$1*))" \
+           'mail' \
+           'title' \
+  | awk -F': ' \
+        '/^uid/{uid=$2; getline; mail=$2; getline; title=$2; printf("%s\t%s\t%s\n",tolower(mail),uid,title)}'

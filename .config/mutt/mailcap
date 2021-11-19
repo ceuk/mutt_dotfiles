@@ -1,0 +1,24 @@
+# Make plaintext emails look nicer
+text/plain; glow %s --width=72 ; copiousoutput;
+
+# open html emails in browser (or whatever GUI program is used to render HTML)
+text/html; openfile %s ; nametemplate=%s.html
+# render html emails inline using lynx
+text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -collapse_br_tags -dump %s; nametemplate=%s.html; copiousoutput
+
+# show calendar invites
+text/calendar; mutt-vcalendar-filter; copiousoutput
+application/ics; mutt-viewical; copiousoutput;
+
+# open images externally
+image/*; openfile %s ;
+
+# open videos in mpv
+video/*; mpv --autofit-larger=90\%x90\% %s; needsterminal;
+video/*; setsid mpv --quiet %s &; copiousoutput
+
+# open spreadsheets in sc-im
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; sc-im %s; needsterminal
+
+# open anything else externally
+application/pdf; openfile %s;
