@@ -48,6 +48,8 @@ Robust Mutt configs with examples for the following account types:
 * abook (basic contact management)
 * goobook (if you want to use google contacts instead)
 * gcalcli (if you want to import events into a google calendar)
+* urlscan (to quickly show/open links within an email)
+* pandoc (if you want to compose HTML emails in markdown)
 
 ## Contents
 
