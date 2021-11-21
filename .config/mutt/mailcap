@@ -7,7 +7,7 @@ text/html; openfile %s ; nametemplate=%s.html
 text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -collapse_br_tags -dump %s; nametemplate=%s.html; copiousoutput
 
 # show calendar invites
-text/calendar; mutt-vcalendar-filter; copiousoutput
+text/calendar; render-calendar-attachment.py %s; copiousoutput;
 application/ics; mutt-viewical; copiousoutput;
 
 # open images externally

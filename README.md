@@ -38,7 +38,6 @@ Robust Mutt configs with examples for the following account types:
 * Notmuch (for email search)
 * Isync (for syncing emails via IMAP)
 * MSMTP (for sending emails via SMTP)
-* Perl (for rendering calendar invites - you might need to install some perl deps via CPAN, can't remember)
 * python-vobject (for interacting with calendar invites)
 * python-icalendar (for interacting with calendar invites)
 * python-pytz (for interacting with calendar invites)
@@ -59,8 +58,8 @@ Robust Mutt configs with examples for the following account types:
 * `bin/mailsync` -  a great script that syncs your mail, originally written by Luke Smith
 * `bin/mutt-ical` - used to respond to email calendar invites
 * `bin/mutt-trim` - clean up emails when quoting reply
-* `bin/mutt-vcalendar-filter` - used to render email calendar invites in Mutt
-* `bin/mutt-viewical` - used to render email calendar invites in Mutt
+* `bin/render-calendar-attachment.py` - used to render email calendar invites in Mutt
+* `bin/mutt-viewical` - used to render ical attachments in Mutt
 * `.config/isync/mbsyncrc` - configuration file for isync (used to sync your emails). There are examples of many different account types to use as a starting point
 * `.config/msmtp/config` - configuration file for msmtp (used to send emails). There are examples of many different account types to use as a starting point
 * `.config/mutt/accounts/*` - individual config files for each email account you wish to use in Mutt. There are examples of many different account types to use as a starting point
