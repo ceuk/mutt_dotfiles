@@ -1,0 +1,102 @@
+# General Navigation
+bind index <return> display-message
+bind index <Left> collapse-thread
+bind index <Right> collapse-thread
+bind index h collapse-thread
+bind index + link-threads
+bind index zz current-middle
+bind index zt current-top
+bind index zb current-bottom
+bind index \\ limit
+macro index x "<limit>all\n" "show all messages (undo limit)"
+macro index \cI "<limit>~F\n" "Limit by flagged"
+macro index L "<limit>~h " "Limit by label"
+
+bind attach <return> view-mailcap
+bind attach | pipe-entry
+
+bind browser gg top-page
+bind browser G bottom-page
+bind browser <return> select-entry
+
+bind pager j next-line
+bind pager k previous-line
+bind pager <Down> next-line
+bind pager <Up> previous-line
+bind pager J next-entry
+bind pager K previous-entry
+bind pager G bottom
+bind pager gg top
+
+bind index,pager f change-folder
+bind index,pager \Cu half-up
+bind index,pager \Cd half-down
+bind index,pager \Cb sidebar-toggle-visible
+bind index,pager \Cj sidebar-next
+bind index,pager \Ck sidebar-prev
+bind index,pager \Co sidebar-open
+bind index,pager \Cn next-unread
+bind index,pager \Cp previous-unread
+bind index,pager H view-raw-message
+bind index,pager v view-attachments
+bind index,pager | pipe-message
+
+bind index,attach G last-entry
+bind index,attach gg first-entry
+
+
+bind index,attach,browser j next-entry
+bind index,attach,browser k previous-entry
+bind index,attach,browser <Down> next-entry
+bind index,attach,browser <Up> previous-entry
+
+bind index,pager,attach,browser,query,alias,compose q exit
+
+# Mail manipulation from index list
+bind index t tag-entry
+bind index T tag-thread
+bind index <space> flag-message 
+bind index u undelete-message
+bind index U undelete-thread
+macro index D ";<save-message>=Archive<enter><enter><sync-mailbox><enter><enter-command>echo 'Message deleted'<enter>" "Quick Delete"
+macro index A ";<save-message>=Archive<enter><enter><sync-mailbox><enter><enter-command>echo 'Message archived'<enter>" "Quick Archive"
+
+bind index,pager d delete-message
+bind index,pager l edit-label
+
+# Compose, Replies and Forwarding
+bind index,pager c mail # compose message
+bind index,pager \Cr recall-message # (from drafts)
+bind index,pager r reply
+bind index,pager R group-reply
+bind index,pager F forward-message
+
+# Compose screen options
+bind compose y send-message
+bind compose a attach-file
+bind compose p postpone-message
+bind compose e edit-message
+bind compose t edit-to
+bind compose f edit-from
+bind compose s edit-subject
+bind compose c edit-cc
+bind compose b edit-bcc
+bind compose r rename-file
+bind compose \Ck move-up
+bind compose \Cj move-down
+bind compose <return> view-attach
+
+# Commands and Misc
+bind index,pager $ sync-mailbox # more like a refresh than a sync
+bind editor <Tab> complete-query
+bind index,pager n search-next
+bind index,pager N search-opposite
+bind index,pager p search-opposite
+bind index,pager,attach,editor,compose <F5> refresh
+macro index O "<shell-escape>mbsync -a -c $HOME/.config/isync/mbsyncrc<enter>" "run mbsync to sync all mail"
+macro attach s '<save-entry><kill-line>~/Downloads/<enter>a' "Save file to ~/Downloads"
+macro pager \cl '|urlscan<enter>' "call urlview to open links"
+macro browser h '<change-dir><kill-line>..<enter>' "Go to parent folder"
+macro index \Ca "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+
+set abort_key = "<Esc>"

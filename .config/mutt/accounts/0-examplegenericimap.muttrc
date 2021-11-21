@@ -13,15 +13,14 @@ set mbox_type = Maildir
 set reverse_name=yes
 set reverse_realname=no
 
-bind index,pager gg noop
-bind index,pager g noop
-bind index,pager M noop
-bind index,pager C noop
-bind index gg first-entry
 macro index o "<shell-escape>mailsync -V ACCOUNT_ALIAS<enter>" "run mbsync to sync ACCOUNT_ALIAS"
 # Allows responding to calendar invites (replace mutt-ical with import_calendar_invite if you want to import the event into a local calendar too)
 macro attach,pager A '<shell-escape>rm -vf /tmp/.mutt.ics<enter><save-entry><kill-line>mutt-ical /tmp/.mutt.ics myemail@domain.com<enter><shell-escape>
 unmailboxes *
+
+# Create virtual mailboxes for all mail and all accounts (replace ACCOUNT_ALIAS below)
+virtual-mailboxes "All Accounts" "notmuch://?query=tag:inbox"
+virtual-mailboxes "All Mail" "notmuch://?query=tag:inbox%20and%20path:ACCOUNT_ALIAS%2F**"
 
 set spoolfile = "+INBOX"
 set record = "+Sent"
@@ -45,3 +44,6 @@ macro index,pager CS ";<copy-message>=Spam<enter>" "copy mail to spam"
 macro index,pager ga "<change-folder>=Archive<enter>" "go to archive"
 macro index,pager Ma ";<save-message>=Archive<enter><enter>" "move mail to archive"
 macro index,pager Ca ";<copy-message>=Archive<enter>" "copy mail to archive"
+
+# C-f search with notmuch (replace ACCOUNT_ALIAS below)
+macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>read -p 'Enter a search: ' x; echo \$x >~/.cache/mutt_terms<enter><change-folder>All Mail<enter><limit>~i \"\`notmuch --config ~/.config/notmuch/notmuchrc search --output=messages \"\$(/bin/cat ~/.cache/mutt_terms) path:ACCOUNT_ALIAS/**\" | head -n 1000 | perl -le '@a=<>;chomp@a;s/\^id:// for@a;$,=\"|\";print@a'\`\"<enter>" "Search all mail in this account"
