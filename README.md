@@ -10,11 +10,11 @@ Robust Mutt configs with examples for the following account types:
 * Generic IMAP/SMTP
 * Google (Gmail/Gsuite etc) via IMAP/SMTP
 * Microsoft Office365 via IMAP/SMTP
-* Microsoft Office365 using DavMail (useful if app passwords or direct IMAP/SMTP access are disabled)
+* Microsoft Office365 using DavMail (useful if app passwords or direct IMAP/SMTP access is disabled)
 
 ## Some Features
 
-* Query and save contacts via abook, goobook or LDAP (for Office365, query only)
+* Query and save contacts via abook, goobook or ldapsearch (e.g. for Office365 accounts, query only)
 * Good calendar invite handling: render calendar invites inline and respond to them with `A` when viewing the calendar invite attachment
 * Nice handling of inline text/html rendering (use `C-l` to open up all links the email - great for quickly finding unsubscribe links)
 * Secure configs (no hardcoded passwords etc)
@@ -84,6 +84,7 @@ Press `?` inside Mutt to see available keybinds for your current context.
 * `q` exit/close/back
 * `<escape>` abort command
 * `?` help
+* `/` search
 * `j` scroll down 
 * `k` scroll up
 * `gg` first item/top
@@ -157,6 +158,7 @@ Press `?` inside Mutt to see available keybinds for your current context.
 * `v` view email attachments
 * `|` pipe current email to shell command
 * `Ctrl-l` call urlscan to show all links in the current email
+* `Shift-a` (when viewing a calendar invite) respond to invite
 
 ### Attachment List
 
