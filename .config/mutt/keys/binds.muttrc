@@ -57,8 +57,8 @@ bind index T tag-thread
 bind index <space> flag-message 
 bind index u undelete-message
 bind index U undelete-thread
-macro index D ";<save-message>=Archive<enter><enter><sync-mailbox><enter><enter-command>echo 'Message deleted'<enter>" "Quick Delete"
-macro index A ";<save-message>=Archive<enter><enter><sync-mailbox><enter><enter-command>echo 'Message archived'<enter>" "Quick Archive"
+macro index D ";:set resolve=no<enter><clear-flag>!<save-message>=Archive<enter><enter><sync-mailbox><enter><enter-command>echo 'Message deleted'<enter>:set resolve=yes<enter>" "Quick Delete"
+macro index A ";:set resolve=no<enter><clear-flag>!<save-message>=Archive<enter><enter><sync-mailbox><enter><enter-command>echo 'Message archived'<enter>:set resolve=yes<enter>" "Quick Archive"
 
 bind index,pager d delete-message
 bind index,pager l edit-label
