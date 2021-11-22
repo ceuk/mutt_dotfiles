@@ -17,7 +17,6 @@ bind attach | pipe-entry
 
 bind browser gg top-page
 bind browser G bottom-page
-bind browser <return> select-entry
 
 bind pager j next-line
 bind pager k previous-line
@@ -41,14 +40,14 @@ bind index,pager H view-raw-message
 bind index,pager v view-attachments
 bind index,pager | pipe-message
 
-bind index,attach G last-entry
-bind index,attach gg first-entry
+bind browser,query <return> select-entry
 
-
-bind index,attach,browser j next-entry
-bind index,attach,browser k previous-entry
-bind index,attach,browser <Down> next-entry
-bind index,attach,browser <Up> previous-entry
+bind index,attach,browser,query G last-entry
+bind index,attach,browser,query gg first-entry
+bind index,attach,browser,query j next-entry
+bind index,attach,browser,query k previous-entry
+bind index,attach,browser,query <Down> next-entry
+bind index,attach,browser,query <Up> previous-entry
 
 bind index,pager,attach,browser,query,alias,compose q exit
 
