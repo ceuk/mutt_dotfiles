@@ -69,7 +69,7 @@ alternative_order text/calendar text/plain text/enriched text/html
 set sidebar_divider_char = ' 	░'
 set sidebar_folder_indent = yes
 set sidebar_indent_string = ' - '
-set sidebar_format = '%B%?F? [%F]?%* %?N?%N/? %?S?%S?'
+set sidebar_format = '%D%?Z? [%Z]?%* %?S?%S?'
 set sidebar_non_empty_mailbox_only = yes
 set sidebar_visible = no
 set sidebar_width   = 50
