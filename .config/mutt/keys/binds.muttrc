@@ -9,7 +9,7 @@ bind index zt current-top
 bind index zb current-bottom
 bind index \\ limit
 macro index x "<limit>all\n" "show all messages (undo limit)"
-macro index \cI "<limit>~F\n" "Limit by flagged"
+macro index \ci "<limit>~F\n" "Limit by flagged"
 macro index L "<limit>~h " "Limit by label"
 
 bind attach <return> view-mailcap
