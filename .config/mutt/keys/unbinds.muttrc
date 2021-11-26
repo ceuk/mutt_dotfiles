@@ -109,6 +109,7 @@ bind generic,pager,editor,index,compose,browser,attach \Ct noop
 bind generic,pager,editor,index,compose,browser,attach \Cu noop
 bind generic,pager,editor,index,compose,browser,attach \Cv noop
 bind generic,pager,editor,index,compose,browser,attach \Cw noop
+bind generic,pager,editor,index,compose,browser,attach \Cxe noop
 bind generic,pager,editor,index,compose,browser,attach \Cx noop
 bind generic,pager,editor,index,compose,browser,attach \Cy noop
 bind generic,pager,editor,index,compose,browser,attach \Cz noop
