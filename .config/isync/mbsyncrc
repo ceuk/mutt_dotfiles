@@ -9,10 +9,16 @@
 # Change ACCOUNT_ALIAS to something meaningful (e.g. personal, work) - this should
 # match the account alias used in .config/mutt/accounts/*
 IMAPStore ACCOUNT_ALIAS-remote
-Host my.imap.host # (check your email providers imap documentation)
-Port 993 # (check your email providers imap documentation)
+# (check your email providers imap documentation)
+Host my.imap.host
+# (check your email providers imap documentation)
+Port 993
 User myemail@domain.com
-PassCmd "pass my-email-password" # how to get your password ('pass' is great for storing these)
+# how to get your password ('pass' and 'gpg' are good for these)
+# using 'pass')
+PassCmd "pass my-email-password"
+# using 'gpg'
+#PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d my-email-password.gpg"
 AuthMechs LOGIN
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
@@ -44,7 +50,11 @@ Port 993
 User myemail@gmail.com
 # NOTE that if you use 2FA you will have to generate an app password to use
 # here instead: https://support.google.com/accounts/answer/185833?hl=en
-PassCmd "pass my-gmail-password" # how to get your password ('pass' is great for storing these)
+# how to get your password ('pass' and 'gpg' are good for these)
+# using 'pass')
+PassCmd "pass my-gmail-password"
+# using 'gpg'
+#PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d my-gmail-password.gpg"
 AuthMechs LOGIN
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
@@ -79,7 +89,11 @@ User myemail@corporateoverlords.com
 # https://support.microsoft.com/en-us/account-billing/manage-app-passwords-for-two-step-verification-d6dc8c6d-4bf7-4851-ad95-6d07799387e9
 # If you can't do this you might have to use the DavMail approach instead of
 # direct IMAP - see below
-PassCmd "pass my-owa-password" # how to get your password ('pass' is great for storing these)
+# how to get your password ('pass' and 'gpg' are good for these)
+# using 'pass')
+PassCmd "pass my-owa-password"
+# using 'gpg'
+#PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d my-owa-password.gpg"
 AuthMechs LOGIN
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
@@ -110,10 +124,15 @@ ExpireUnread no
 # you have it running locally as opposed to on a server somewhere
 IMAPStore ACCOUNT_ALIAS-remote
 Host 127.0.0.1
-Port 1143 # default port used by DavMail - change if needed
+# default port used by DavMail - change if needed
+Port 1143
 User myemail@corporateoverlords.com
 # use your main login password
-PassCmd "pass my-owa-password" # how to get your password ('pass' is great for storing these)
+# how to get your password ('pass' and 'gpg' are good for these)
+# using 'pass')
+PassCmd "pass my-owa-password"
+# using 'gpg'
+#PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d my-owa-password.gpg"
 SSLType none
 AuthMechs LOGIN
 
