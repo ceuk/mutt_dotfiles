@@ -1,3 +1,4 @@
+# vim:filetype=msmtp
 ## Used to configure your SMTP settings
 # the ACCOUNT_ALIAS used here should match the one you used in your mutt and
 # isync configs
@@ -11,11 +12,15 @@ logfile	~/.config/msmtp/msmtp.log
 
 # Example generic SMTP
 account ACCOUNT_ALIAS
-host my.imap.host # (check your email providers smtp documentation)
+# (check your email providers smtp documentation)
+host my.imap.host
 port 587
 from me@myemail.com
 user me@myemail.com
-passwordeval "pass my-email-password" # how to get your password ('pass' is great for storing these)
+# how to get your password ('pass' example)
+passwordeval "pass my-email-password"
+# how to get your password ('gpg' example)
+# passwordeval "gpg --quiet --for-your-eyes-only --no-tty --decrypt my-email-password"
 
 
 # Example google SMTP
@@ -26,7 +31,10 @@ from myemail@gmail.com
 user myemail@gmail.com
 # NOTE that if you use 2FA you will have to generate an app password to use
 # here instead: https://support.google.com/accounts/answer/185833?hl=en
-passwordeval "pass my-gmail-password" # how to get your password ('pass' is great for storing these)
+# how to get your password ('pass' example)
+passwordeval "pass my-email-password"
+# how to get your password ('gpg' example)
+# passwordeval "gpg --quiet --for-your-eyes-only --no-tty --decrypt my-email-password"
 
 
 # Example outlook/office365 via SMTP
@@ -40,7 +48,10 @@ user myemail@corporateoverlords.com
 # https://support.microsoft.com/en-us/account-billing/manage-app-passwords-for-two-step-verification-d6dc8c6d-4bf7-4851-ad95-6d07799387e9
 # If you can't do this you might have to use the DavMail approach instead of
 # direct IMAP - see below
-passwordeval "pass my-owa-password" # how to get your password ('pass' is great for storing these)
+# how to get your password ('pass' example)
+passwordeval "pass my-owa-password"
+# how to get your password ('gpg' example)
+# passwordeval "gpg --quiet --for-your-eyes-only --no-tty --decrypt my-owa-password"
 
 
 # Example outlook/office365 (DavMail method)
@@ -55,5 +66,7 @@ auth login
 from myemail@corporateoverlords.com
 user myemail@corporateoverlords.com
 # Use your normal login password
-passwordeval "pass my-owa-password" # how to get your password ('pass' is great for storing these)
-
+# how to get your password ('pass' example)
+passwordeval "pass my-owa-password"
+# how to get your password ('gpg' example)
+# passwordeval "gpg --quiet --for-your-eyes-only --no-tty --decrypt my-owa-password"
