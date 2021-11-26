@@ -29,7 +29,7 @@ set trash = ""
 set query_command="goobook -c ~/.config/goobook/goobookrc query %s"
 # a add to address book
 macro index,pager a "<pipe-message>goobook -c ~/.config/goobook/goobookrc add<return>" "add the sender address to Google contacts"
-mailboxes "=Lists.Aerc" "=[Gmail].Starred" "=Lists" "=Lists.SourceHut(Announcements)" "=INBOX" "=[Gmail].Bin" "=[Gmail].Drafts" "=[Gmail].Spam" "=Archive" "=[Gmail].Sent\ Mail" "=Lists.SourceHut(Discussions)" "=Lists.Github" 
+mailboxes "=[Gmail].Starred"  "=INBOX" "=[Gmail].Bin" "=[Gmail].Drafts" "=[Gmail].Spam" "=Archive" "=[Gmail].Sent\ Mail"
 macro index gi "<change-folder>=INBOX<enter>" "go to inbox"
 macro index Mi ";<save-message>=INBOX<enter><enter>" "move mail to inbox"
 macro index Ci ";<copy-message>=INBOX<enter>" "copy mail to inbox"
