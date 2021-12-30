@@ -16,6 +16,7 @@ Robust Mutt configs with examples for the following account types:
 
 * Query and save contacts via abook, goobook or ldapsearch (e.g. for Office365 accounts, query only)
 * Good calendar invite handling: render calendar invites inline and respond to them with `A` when viewing the calendar invite attachment
+* Threads also contain emails sent by you like you see in modern email clients (this is achieved via notmuch)
 * Nice handling of inline text/html rendering (use `C-l` to open up all links the email - great for quickly finding unsubscribe links)
 * Secure configs (no hardcoded passwords etc)
 * Fast global search of all mail in every account or all mail in a single account via NotMuch
@@ -34,7 +35,8 @@ Robust Mutt configs with examples for the following account types:
 ## Dependencies
 
 * NeoMutt (latest version, all compile options enabled)
-* [glow](https://github.com/charmbracelet/glow) (nicer plain text email rendering)
+* [html2text](https://pypi.org/project/html2text/) (nicer HTML email rendering)
+* [glow](https://github.com/charmbracelet/glow) (nicer HTML email rendering)
 * Lynx (render HTML emails, W3m works well too)
 * Notmuch (for email search)
 * Isync (for syncing emails via IMAP)
@@ -59,19 +61,23 @@ Robust Mutt configs with examples for the following account types:
 * `bin/mailsync` -  a great script that syncs your mail, originally written by Luke Smith
 * `bin/mutt-ical` - used to respond to email calendar invites
 * `bin/mutt-trim` - clean up emails when quoting reply
+* `bin/mutt-nm-search-cached` - search emails with notmuch
 * `bin/render-calendar-attachment.py` - used to render email calendar invites in Mutt
 * `bin/mutt-viewical` - used to render ical attachments in Mutt
+* `bin/beautiful_html_render` - best approach I've found so far
 * `.config/isync/mbsyncrc` - configuration file for isync (used to sync your emails). There are examples of many different account types to use as a starting point
+* `.config/glow/*` - various settings and themes related to Glow
 * `.config/msmtp/config` - configuration file for msmtp (used to send emails). There are examples of many different account types to use as a starting point
 * `.config/mutt/accounts/*` - individual config files for each email account you wish to use in Mutt. There are examples of many different account types to use as a starting point
 * `.config/mutt/muttrc` - the main Mutt config - use this to customize various settings/macros/bindings etc
 * `.config/mutt/styles.muttrc` - my custom styling for Mutt - you shouldn't need to tweak this much/at all
-* `.config/mutt/dracula.muttrc`  - the dracula color scheme - remove or replace if you want different colors
 * `.config/mutt/mailcap` - mailcap file for detrening how to render different types of emails/attachments - customize as needed (there's already quite a lot of handy stuff in there)
 * `.config/notmuch/notmuchrc` - config file for notmuch (used for searching emails) - you will need to change some values in here such as your name/email
 * `.config/systemd/user/calendar-remind*` - systemd timer/service files for repeatedly calling `gcalcli remind` (to generate notifications 15 mins before an event starts). Enable with `systemctl --user enable calendar-remind.timer` or delete if you don't need.
 * `.config/systemd/user/gcalcli*` - systemd timer/service files for repeatedly calling `gcalsync` (to sync gcalcli with google calendar). Enable with `systemctl --user enable gcalcli.timer` or delete if you don't need.
 * `.config/systemd/user/mailsync*` - systemd timer/service files for repeatedly calling `mailsync` (to sync your emails). Enable with `systemctl --user enable mailsync.timer`
+* `.config/systemd/user/vdirsyncer*` - systemd timer/service files for repeatedly calling `vdirsyncer sync` (to sync your calendars). Enable with `systemctl --user enable vdirsyncer.timer`
+* `.config/vdirsyncer/config` - example configs for vdirsyncer (used to sync calendars, I recommend using with [Khal](https://github.com/pimutils/khal))
 
 ## Key Bindings
 

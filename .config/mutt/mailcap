@@ -1,10 +1,8 @@
-# Make plaintext emails look nicer
-text/plain; glow %s --width=72 ; copiousoutput;
-
 # open html emails in browser (or whatever GUI program is used to render HTML)
 text/html; openfile %s ; nametemplate=%s.html
-# render html emails inline using lynx
-text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -collapse_br_tags -dump %s; nametemplate=%s.html; copiousoutput
+# render html emails inline using magic (uncomment the line below to use lynx instead)
+# text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -collapse_br_tags -dump %s; nametemplate=%s.html; copiousoutput
+text/html; beautiful_html_render %s; nametemplate=%s.html; copiousoutput;
 
 # show calendar invites
 text/calendar; render-calendar-attachment.py %s; copiousoutput;
