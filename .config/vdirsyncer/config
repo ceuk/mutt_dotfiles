@@ -1,0 +1,44 @@
+[general]
+status_path = "~/.config/vdirsyncer/status/"
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;    EXAMPLE OFFICE365 INTEGRATION VIA DAVMAIL     ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[pair CALENDAR_ALIAS_1]
+a = "CALENDAR_ALIAS_1_local"
+b = "CALENDAR_ALIAS_1_remote"
+metadata = ["color"]
+collections = null
+conflict_resolution = "b wins"
+
+[storage CALENDAR_ALIAS_1_remote]
+type = "caldav"
+url = "http://localhost:1080/users/MYEMAIL@EMAIL.com/calendar/"
+username = "MYEMAIL@EMAIL.com"
+password.fetch = ["command", "pass", "mutt-mypass"]
+
+[storage CALENDAR_ALIAS_1_local]
+type = "filesystem"
+path = "~/.local/share/calendar/CALENDAR_ALIAS_1/"
+fileext = ".ics"
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  EXAMPLE GOOGLE CALENDAR INTEGRATION   ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[pair personal_calendar]
+a = "CALENDAR_ALIAS_2_local"
+b = "CALENDAR_ALIAS_2_remote"
+collections = ["from a", "from b"]
+metadata = ["color"]
+
+[storage CALENDAR_ALIAS_2_local]
+type = "filesystem"
+path = "~/.local/share/calendar/CALENDAR_ALIAS_2/"
+fileext = ".ics"
+
+[storage CALENDAR_ALIAS_2_remote]
+type = "google_calendar"
+token_file = "~/some-secure-path/vdirsyncer_google_oauth_personal"
+client_id = "google-app-id" ; create a developer app: requires the caldav permission
+client_secret = "google-app-secret"
+

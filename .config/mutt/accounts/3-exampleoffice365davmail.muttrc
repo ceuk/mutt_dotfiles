@@ -2,9 +2,11 @@
 # example of an office365 config where imap is NOT enabled/allowed. 
 # in order to use this you will need to have DavMail running: http://davmail.sourceforge.net/
 # change ACCOUNT_ALIAS to something sensible (this should match msmtp and isync)
+# change ACCOUNT_NAME to the display name for this account
+# change myemail@corporateoverlords.com your main email address for this account
 set realname = "My Name"
 set from = "myemail@corporateoverlords.com"
-set sendmail = "msmtp -a "
+set sendmail = "msmtp -a ACCOUNT_ALIAS"
 alias me My Name <myemail@corporateoverlords.com>
 set folder = "~/.local/share/mail/ACCOUNT_ALIAS"
 set header_cache = ~/.cache/mutt/ACCOUNT_ALIAS/headers
@@ -12,23 +14,40 @@ set message_cachedir = ~/.cache/mutt/ACCOUNT_ALIAS/bodies
 set mbox_type = Maildir
 set reverse_name=yes
 set reverse_realname=no
+set query_command = "ldap_owa_query '%s' 'ACCOUNT_ALIAS'"
 
 macro index o "<shell-escape>mailsync -V ACCOUNT_ALIAS<enter>" "run mbsync to sync ACCOUNT_ALIAS"
-# Responds to invite and imports the event into a personal calendar (this is assuming that if the company locks down IMAP they probably lock down calendar sharing too)
-macro attach,pager A '<shell-escape>rm -vf /tmp/.mutt.ics<enter><save-entry><kill-line>/tmp/.mutt.ics<enter><shell-escape>import_calendar_invite /tmp/.mutt.ics myemail@corporateoverlords.com<enter>'
+# Accept/decline a callendar invite
+macro attach a '<shell-escape>rm -vf /tmp/.mutt.ics<enter><save-entry><kill-line>/tmp/.mutt.ics<enter><shell-escape>mutt-ical -e myemail@corporateoverlords.com /tmp/.mutt.ics<enter>'
 unmailboxes *
+
+
+# Create a virtual "inbox" that includes items sent by you when part of a thread
+# Notice that the space after ACCOUNT_NAME is not a real space, it's a sneaky
+# hack used for formatting the status bar. Make sure not to accidentally delete
+# this.
+# INBOX might need changing to Inbox/inbox depending on the casing of the
+# folder in ~/.local/share/mail/ACCOUNT_ALIAS
+virtual-mailboxes "ACCOUNT_NAME  Inbox" "notmuch://?query=tag:inbox%20tag:unread%20and%20path:ACCOUNT_ALIAS%2FINBOX%2F**&entire-thread=true"
 
 # Create virtual mailboxes for all mail and all accounts (replace ACCOUNT_ALIAS below)
 virtual-mailboxes "All Accounts" "notmuch://?query=tag:inbox"
 virtual-mailboxes "All Mail" "notmuch://?query=tag:inbox%20and%20path:ACCOUNT_ALIAS%2F**"
 
-set spoolfile = "+INBOX"
+# Again, be careful. The space after ACCOUNT_NAME here is not a real space
+set spoolfile = "ACCOUNT_NAME  Inbox"
 set record = "+Sent"
 set postponed = "+Drafts"
-set trash = ""
-mailboxes "=INBOX" "=Trash" "=Drafts" "=Archive" "=Sent"
+set trash = "+Trash"
+
+# Beware of the fake space again
+named-mailboxes "ACCOUNT_NAME  Inbox" "=INBOX"
+named-mailboxes "ACCOUNT_NAME  Trash" "=Trash"
+named-mailboxes "ACCOUNT_NAME  Drafts" "=Drafts"
+named-mailboxes "ACCOUNT_NAME  Archive" ="Archive"
+named-mailboxes "ACCOUNT_NAME  Sent Items" "=Sent"
+
 # query contacts with LDAP
-set query_command = "ldap_owa_query '%s'"
 macro index,pager gi "<change-folder>=INBOX<enter>" "go to inbox"
 macro index,pager Mi ";<save-message>=INBOX<enter><enter>" "move mail to inbox"
 macro index,pager Ci ";<copy-message>=INBOX<enter>" "copy mail to inbox"
@@ -46,4 +65,4 @@ macro index,pager Ma ";<save-message>=Archive<enter><enter>" "move mail to archi
 macro index,pager Ca ";<copy-message>=Archive<enter>" "copy mail to archive"
 
 # C-f search with notmuch (replace ACCOUNT_ALIAS below)
-macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>read -p 'Enter a search: ' x; echo \$x >~/.cache/mutt_terms<enter><change-folder>All Mail<enter><limit>~i \"\`notmuch --config ~/.config/notmuch/notmuchrc search --output=messages \"\$(/bin/cat ~/.cache/mutt_terms) path:ACCOUNT_ALIAS/**\" | head -n 1000 | perl -le '@a=<>;chomp@a;s/\^id:// for@a;$,=\"|\";print@a'\`\"<enter>" "Search all mail in this account"
+macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>read -p 'Enter a search: ' x; echo \$x >~/.cache/mutt_terms<enter><change-folder>All Mail<enter><limit>~i \"\`mutt-nm-search-cached ACCOUNT_ALIAS\`\"<enter>" "Search all mail in this account"

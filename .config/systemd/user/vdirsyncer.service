@@ -1,0 +1,6 @@
+[Unit]
+Description=Calendar synchronization service
+
+[Service]
+Type=oneshot
+ExecStart="vdirsyncer sync"

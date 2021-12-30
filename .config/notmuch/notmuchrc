@@ -51,8 +51,7 @@ other_email=some@other.com;email@addresses.com;
 #
 
 [new]
-tags=unread;inbox;
-ignore=
+tags=new
 
 # Search configuration
 #

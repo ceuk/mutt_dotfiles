@@ -29,6 +29,7 @@ Robust Mutt configs with examples for the following account types:
 * Move the stuff you need from the bin folder into /usr/local/bin (don't forget to `chmod +x` them)
 * Go through each config file and customize it - there are comments/instructions in each file
 * Enable any systemd services you need (or use something like cron)
+* You probably want to set the ESCDELAY env var to 0 in your bashrc, zshrc etc
 
 ## Dependencies
 

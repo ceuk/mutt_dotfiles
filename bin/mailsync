@@ -71,6 +71,11 @@ rm -f /tmp/imapsyncicon_"$USER"
 ( pkill -RTMIN+12 "${STATUSBAR:-blocks}" >/dev/null 2>&1 ) 2>/dev/null
 
 notmuch new 2>/dev/null
+# retag all "new" messages "inbox" and "unread"
+notmuch tag +inbox +unread -new -- tag:new
+# tag all messages from "me" as sent and remove tags inbox and unread (add all your email addressess here)
+notmuch tag -new -inbox +sent -- from:myemail@email.com or from:myotheremail@email.com
+
 
 #Create a touch file that indicates the time of the last run of mailsync
 touch "$HOME/.config/mutt/.mailsynclastrun"

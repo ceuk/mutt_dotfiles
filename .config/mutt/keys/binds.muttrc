@@ -1,19 +1,19 @@
 # General Navigation
-bind index <return> display-message
 bind index <Left> collapse-thread
 bind index <Right> collapse-thread
 bind index h collapse-thread
+bind index l collapse-thread
 bind index + link-threads
 bind index zz current-middle
 bind index zt current-top
 bind index zb current-bottom
 bind index \\ limit
+macro index <return> "<display-message>\n<skip-headers>\n"
+macro index \# "<edit-label>\n" "Mark as Complete"
 macro index x "<limit>all\n" "show all messages (undo limit)"
 macro index \ci "<limit>~F\n" "Limit by flagged"
-macro index L "<limit>~h " "Limit by label"
 
 bind attach <return> view-mailcap
-bind attach | pipe-entry
 
 bind browser gg top-page
 bind browser G bottom-page
@@ -22,10 +22,10 @@ bind pager j next-line
 bind pager k previous-line
 bind pager <Down> next-line
 bind pager <Up> previous-line
-bind pager J next-entry
-bind pager K previous-entry
 bind pager G bottom
 bind pager gg top
+macro pager J "<next-entry>\n<skip-headers>\n"
+macro pager K "<previous-entry>\n<skip-headers>\n"
 
 bind index,pager f change-folder
 bind index,pager \Cu half-up
@@ -61,7 +61,7 @@ macro index D ";:set resolve=no<enter><clear-flag>!<save-message>=Archive<enter>
 macro index A ";:set resolve=no<enter><clear-flag>!<save-message>=Archive<enter><enter><sync-mailbox><enter><enter-command>echo 'Message archived'<enter>:set resolve=yes<enter>" "Quick Archive"
 
 bind index,pager d delete-message
-bind index,pager l edit-label
+bind index,pager L edit-label
 
 # Compose, Replies and Forwarding
 bind index,pager c mail # compose message
@@ -81,9 +81,13 @@ bind compose s edit-subject
 bind compose c edit-cc
 bind compose b edit-bcc
 bind compose r rename-file
+bind compose F filter-entry
+bind compose \Ct edit-type
 bind compose \Ck move-up
 bind compose \Cj move-down
 bind compose <return> view-attach
+
+bind attach,compose | pipe-entry
 
 # Commands and Misc
 bind index,pager $ sync-mailbox # more like a refresh than a sync
@@ -92,10 +96,11 @@ bind index,pager n search-next
 bind index,pager N search-opposite
 bind index,pager p search-opposite
 bind index,pager,attach,editor,compose <F5> refresh
+macro index,pager \cl '<pipe-message>urlscan -d -w 80<enter>' "call urlscan to open links"
 macro index O "<shell-escape>mbsync -a -c $HOME/.config/isync/mbsyncrc<enter>" "run mbsync to sync all mail"
 macro attach s '<save-entry><kill-line>~/Downloads/<enter>a' "Save file to ~/Downloads"
-macro pager \cl '|urlscan<enter>' "call urlview to open links"
 macro browser h '<change-dir><kill-line>..<enter>' "Go to parent folder"
 macro index \Ca "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+macro attach,compose \cl "<pipe-entry> urlscan -d -w 80<Enter>" "call urlscan to extract URLs out of a message"
 
 set abort_key = "<Esc>"

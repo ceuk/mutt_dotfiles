@@ -5,6 +5,13 @@ import warnings
 import vobject
 
 
+def smart_truncate(content, length=100, suffix='…'):
+    if len(content) <= length:
+        return content
+    else:
+        return ' '.join(content[:length+1].split(' ')[0:-1]) + suffix
+
+
 def get_invitation_from_path(path):
     with open(path) as f:
         try:
@@ -31,6 +38,7 @@ def pretty_print_invitation(invitation):
     if (invitation.method.value == 'REPLY'):
         print(event['summary'][0].value)
     else:
+        CONTENT_WIDTH = 70
         title = event['summary'][0].value
         org = event['organizer'][0] if 'organizer' in event else 'none'
         invitees = event['attendee']
@@ -38,18 +46,25 @@ def pretty_print_invitation(invitation):
         end = event['dtend'][0].value
         location = event['location'][0].value
         description = event['description'][0].value if 'description' in event else 'none'
-        print("="*70)
-        print("%s".center(70 - len(title.strip())) % title.strip())
-        print("="*70)
+        print("")
+        print("\u001b[48m", " "*CONTENT_WIDTH, "\u001b[0m")
+        print("\u001b[48;1;37m",
+              ("Event Invitation").center(CONTENT_WIDTH), "\u001b[0m",)
+        print("\u001b[48;37m",
+              (smart_truncate(title.strip(), 68)).center(CONTENT_WIDTH), "\u001b[0m",)
+        print("\u001b[48m", " "*CONTENT_WIDTH, "\u001b[0m")
         # print("Event Name: %s" % title.strip())
+        print("")
         print("Date/Time:   %s" % when_str_of_start_end(start, end))
-        print("Location:    %s" % (location if location else '<None>'))
+        print("Location:    %s" % (location or (
+            'Microsoft Teams meeting' if 'Microsoft Teams meeting' in description else '<None>')))
         print("Organiser:   %s" % person_string(org))
+
+        print("\n%s\n\n" % description)
+
         print("Invitees:")
         for i in invitees:
             print("  %s" % person_string(i) if i else '')
-
-        print("\n%s---" % description)
 
 
 if __name__ == "__main__":
