@@ -12,6 +12,15 @@ Robust Mutt configs with examples for the following account types:
 * Microsoft Office365 via IMAP/SMTP
 * Microsoft Office365 using DavMail (useful if app passwords or direct IMAP/SMTP access is disabled)
 
+I've spent a **long** time endlessly tuning these configs to try and create a
+command-line-based, email setup that doesn't feel like a gimmick or a trade-off
+when compared to modern web/GUI-based email clients.
+
+I use this every day personally and for my work. I'm currently contracting for
+a super corporate public sector organisation who use Office365, Outlook, Teams
+etc and I find this setup easier and more productive than using the standard
+Microsoft tooling. 
+
 ## Some Features
 
 * Query and save contacts via abook, goobook or ldapsearch (e.g. for Office365 accounts, query only)
