@@ -2,7 +2,7 @@
 # example of an office365 config where imap is enabled/allowed
 # change ACCOUNT_ALIAS to something sensible (this should match msmtp and isync)
 set realname = "My Name"
-set from = "myemail@domain.com
+set from = "myemail@domain.com"
 set sendmail = "msmtp -a ACCOUNT_ALIAS"
 alias me My Name <myemail@domain.com>
 set folder = "~/.local/share/mail/ACCOUNT_ALIAS"
