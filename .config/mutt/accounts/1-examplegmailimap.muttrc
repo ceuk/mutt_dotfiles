@@ -2,7 +2,7 @@
 # example of a google imap configuration
 # change ACCOUNT_ALIAS to something sensible (this should match msmtp and isync)
 set realname = "My Name"
-set from = "myemail@gmail.com
+set from = "myemail@gmail.com"
 set sendmail = "msmtp -a ACCOUNT_ALIAS"
 alias me My Name <myemail@gmail.com>
 set folder = "~/.local/share/mail/ACCOUNT_ALIAS"
